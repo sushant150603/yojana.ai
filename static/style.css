@@ -1,0 +1,164 @@
+/* ---------- Global Styles ---------- */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+    background: linear-gradient(135deg, #0f1c2c 30%, #2a4c3e 70%);
+    color: #e0f7fa;
+    overflow-x: hidden;
+}
+
+/* ---------- Header ---------- */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem 5%;
+    background: rgba(15, 28, 44, 0.85);
+    border-bottom: 2px solid #4dd0e1;
+    box-shadow: 0 0 20px rgba(77, 208, 225, 0.5);
+}
+
+header h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2.5rem;
+    color: #a5d6a7; /* natural green glow */
+    text-shadow: 0 0 10px #a5d6a7, 0 0 20px #4dd0e1;
+}
+
+/* ---------- Navigation ---------- */
+nav a {
+    color: #e0f7fa;
+    text-decoration: none;
+    margin-left: 2rem;
+    font-weight: 500;
+    position: relative;
+}
+
+nav a::after {
+    content: '';
+    display: block;
+    width: 0;
+    height: 2px;
+    background: #a5d6a7;
+    transition: width 0.3s;
+}
+
+nav a:hover::after {
+    width: 100%;
+}
+
+/* ---------- Main Section ---------- */
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 5rem 10%;
+    text-align: center;
+}
+
+/* Robotic grid + nature overlay */
+.main-container {
+    position: relative;
+    width: 100%;
+    max-width: 1200px;
+    padding: 3rem;
+    background: rgba(15, 28, 44, 0.8);
+    border-radius: 20px;
+    box-shadow: 0 0 30px rgba(77, 208, 225, 0.5);
+    overflow: hidden;
+}
+
+.main-container::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: repeating-linear-gradient(
+        45deg,
+        rgba(77, 208, 225, 0.2),
+        rgba(77, 208, 225, 0.2) 2px,
+        transparent 2px,
+        transparent 10px
+    );
+    animation: rotateGrid 20s linear infinite;
+}
+
+@keyframes rotateGrid {
+    0% { transform: rotate(0deg);}
+    100% { transform: rotate(360deg);}
+}
+
+.main-container h2 {
+    font-family: 'Roboto Slab', serif;
+    font-size: 2rem;
+    color: #c8e6c9;
+    margin-bottom: 1rem;
+}
+
+.main-container p {
+    font-size: 1.1rem;
+    color: #e0f7fa;
+    line-height: 1.6;
+}
+
+/* ---------- Buttons ---------- */
+button {
+    background: linear-gradient(135deg, #4dd0e1, #a5d6a7);
+    color: #0f1c2c;
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 12px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 5px 15px rgba(77, 208, 225, 0.4);
+}
+
+button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 20px rgba(165, 214, 167, 0.6);
+}
+
+/* ---------- Footer ---------- */
+footer {
+    background: rgba(15, 28, 44, 0.85);
+    padding: 2rem 5%;
+    text-align: center;
+    border-top: 2px solid #4dd0e1;
+    color: #a5d6a7;
+    font-size: 0.9rem;
+}
+
+/* ---------- Organic Floating Elements ---------- */
+.nature-bubble {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background: rgba(165, 214, 167, 0.6);
+    border-radius: 50%;
+    animation: floatBubble 12s infinite ease-in-out;
+}
+
+.nature-bubble:nth-child(2) {
+    width: 80px;
+    height: 80px;
+    animation-duration: 18s;
+    left: 70%;
+    top: 20%;
+}
+
+.nature-bubble:nth-child(3) {
+    width: 40px;
+    height: 40px;
+    animation-duration: 10s;
+    left: 20%;
+    top: 60%;
+}
+
+@keyframes floatBubble {
+    0%, 100% { transform: translateY(0) translateX(0); opacity: 0.8; }
+    50% { transform: translateY(-50px) translateX(30px); opacity: 0.5; }
+}

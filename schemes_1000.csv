@@ -1,0 +1,6 @@
+name,description,website,type,min_age,gender,states,occupations,residence,minority,disabled
+PM-Kisan,Provides income support to farmers,https://pmkisan.gov.in,central,18,Any,ALL,Farmer,Any,Any,Any
+Atal Pension Yojana,Pension scheme for all citizens,https://www.npscra.nsdl.co.in,central,18,Any,ALL,Any,Any,Any,Any
+Pradhan Mantri Awas Yojana,Affordable housing scheme,https://pmaymis.gov.in,central,18,Any,ALL,Any,Urban,Any,Any
+Mukhyamantri Kisan Yojana,State support for farmers,https://krushi.maharashtra.gov.in,state,18,Any,Maharashtra,Farmer,Rural,Any,Any
+Ladli Laxmi Yojana,Financial assistance for girl child,https://ladlilaxmi.mp.gov.in,state,0,Female,Madhya Pradesh,Any,Any,Any,Any

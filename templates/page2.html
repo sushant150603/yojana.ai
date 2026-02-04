@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ labels.title }}</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #eef2f3; padding: 30px; }
+        h2 { color: #2c3e50; text-align: center; }
+        form { max-width: 600px; margin: auto; background: #fff; padding: 20px; border-radius: 8px; }
+        label { display: block; margin-top: 15px; font-weight: bold; }
+        select, input { width: 100%; padding: 8px; margin-top: 5px; border-radius: 4px; border: 1px solid #ccc; }
+        button { margin-top: 20px; padding: 10px 15px; background-color: #1a73e8; color: #fff; border: none; border-radius: 4px; cursor: pointer; }
+        button:hover { background-color: #155ab6; }
+    </style>
+</head>
+<body>
+
+<h2>{{ labels.title }}</h2>
+
+<form method="post">
+    <label>{{ labels.state }}</label>
+    <select name="state" required>
+        <option value="">{{ labels.select }}</option>
+        {% for s in states %}
+            <option value="{{ s }}" {% if session.user_data and session.user_data['state']==s.split(' (')[0] %}selected{% endif %}>
+                {{ s }}
+            </option>
+        {% endfor %}
+    </select>
+
+    <label>{{ labels.gender }}</label>
+    <select name="gender" required>
+        <option value="">{{ labels.select }}</option>
+        {% for g in genders %}
+            <option value="{{ g }}" {% if session.user_data and session.user_data['gender']==g.split(' (')[0] %}selected{% endif %}>
+                {{ g }}
+            </option>
+        {% endfor %}
+    </select>
+
+    <label>{{ labels.age }}</label>
+    <input type="number" name="age" value="{{ session.user_data['age'] if session.user_data else '' }}" required />
+
+    <label>{{ labels.caste }}</label>
+    <select name="caste" required>
+        <option value="">{{ labels.select }}</option>
+        {% for c in castes %}
+            <option value="{{ c }}" {% if session.user_data and session.user_data['caste']==c.split(' (')[0] %}selected{% endif %}>
+                {{ c }}
+            </option>
+        {% endfor %}
+    </select>
+
+    <label>{{ labels.residence }}</label>
+    <select name="residence" required>
+        <option value="">{{ labels.select }}</option>
+        {% for r in residence_types %}
+            <option value="{{ r }}" {% if session.user_data and session.user_data['residence']==r.split(' (')[0] %}selected{% endif %}>
+                {{ r }}
+            </option>
+        {% endfor %}
+    </select>
+
+    <label>{{ labels.occupation }}</label>
+    <select name="occupation" required>
+        <option value="">{{ labels.select }}</option>
+        {% for o in occupations %}
+            <option value="{{ o }}" {% if session.user_data and session.user_data['occupation']==o.split(' (')[0] %}selected{% endif %}>
+                {{ o }}
+            </option>
+        {% endfor %}
+    </select>
+
+    <label>{{ labels.salary }}</label>
+    <select name="salary" required>
+        <option value="">{{ labels.select }}</option>
+        {% for s in salary_ranges %}
+            <option value="{{ s }}" {% if session.user_data and session.user_data['salary']==s.split(' (')[0] %}selected{% endif %}>
+                {{ s }}
+            </option>
+        {% endfor %}
+    </select>
+
+    <label>{{ labels.minority }}</label>
+    <select name="minority" required>
+        <option value="">{{ labels.select }}</option>
+        {% for y in yes_no %}
+            <option value="{{ y }}" {% if session.user_data and session.user_data['minority']==y.split(' (')[0] %}selected{% endif %}>
+                {{ y }}
+            </option>
+        {% endfor %}
+    </select>
+
+    <label>{{ labels.disabled }}</label>
+    <select name="disabled" required>
+        <option value="">{{ labels.select }}</option>
+        {% for y in yes_no %}
+            <option value="{{ y }}" {% if session.user_data and session.user_data['disabled']==y.split(' (')[0] %}selected{% endif %}>
+                {{ y }}
+            </option>
+        {% endfor %}
+    </select>
+
+    <button type="submit">{{ labels.submit }}</button>
+</form>
+
+</body>
+</html>

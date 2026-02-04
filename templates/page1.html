@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>{{ labels.title }}</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Keep your internal style as is -->
+<style>
+body { font-family: Arial, sans-serif; background-color: #f9f9f9; text-align: center; padding: 90px 20px; }
+h1 { color: #2c3e50; }
+p { font-size: 18px; color: #555; }
+.languages { margin-top: 30px; font-size: 16px; }
+.languages span { margin: 0 10px; cursor: pointer; color: #1a73e8; }
+.languages span:hover { text-decoration: underline; }
+.active-lang { font-weight: bold; color: #000; text-decoration: underline; }
+</style>
+
+<!-- External CSS for robotic + nature theme -->
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+<body>
+<div class="container main-container">
+
+<h1>Welcome to Yojana.ai</h1>
+<p>An AI-powered platform to explore Government Schemes easily</p>
+
+<!-- Language Options -->
+<div class="languages">
+<strong>Languages:</strong>
+<span class="active-lang" onclick="selectLanguage('en')">English</span>
+<span onclick="selectLanguage('hi')">हिंदी</span>
+<span onclick="selectLanguage('mr')">मराठी</span>
+<span onclick="selectLanguage('kn')">ಕನ್ನಡ</span>
+<span onclick="selectLanguage('gu')">ગુજરાતી</span>
+</div>
+
+<!-- Speaker Icon at Right-Bottom -->
+<img src="{{ url_for('static', filename='speaker.png') }}" class="speaker" onclick="document.getElementById('welcomeAudio').play()">
+
+<!-- Audio -->
+<audio id="welcomeAudio">
+  <source src="{{ url_for('static', filename='audio/welcome.mp3') }}" type="audio/mpeg">
+</audio>
+
+<!-- Organic bubbles -->
+<div class="nature-bubble"></div>
+<div class="nature-bubble"></div>
+<div class="nature-bubble"></div>
+
+<script>
+let selectedLanguage = "en";
+// Set active language and redirect to Page 2
+function selectLanguage(langCode) {
+    selectedLanguage = langCode;
+    document.querySelectorAll(".languages span")
+    .forEach(el => el.classList.remove("active-lang"));
+    event.target.classList.add("active-lang");
+    // Redirect to Page 2 with selected language
+    window.location.href = "/page2?lang=" + langCode;
+}
+</script>
+
+</div>
+</body>
+</html>
