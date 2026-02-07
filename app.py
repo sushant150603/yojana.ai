@@ -8,12 +8,12 @@ from dotenv import load_dotenv  # Import the loader
 load_dotenv()
 # 2. Retrieve the variables
 OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
-SECRET_KEY = os.getenv("FLASK_SECRET")
+#SECRET_KEY = os.getenv("FLASK_SECRET")
 
 # ---------------- FLASK APP ----------------
 app = Flask(__name__)
-app.secret_key =  SECRET_KEY   # session safety
-
+#app.secret_key =  SECRET_KEY   # session safety
+app.secret_key = "yojana_sarathi_secret_key_2026"
 # ---------------- AI CONFIG (OpenRouter) ----------------
 # PASTE YOUR OPENROUTER KEY HERE
 
