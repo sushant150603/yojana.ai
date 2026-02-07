@@ -1,6 +1,15 @@
-name,description,website,type,min_age,gender,states,occupations,residence,minority,disabled
-PM-Kisan,Provides income support to farmers,https://pmkisan.gov.in,central,18,Any,ALL,Farmer,Any,Any,Any
-Atal Pension Yojana,Pension scheme for all citizens,https://www.npscra.nsdl.co.in,central,18,Any,ALL,Any,Any,Any,Any
-Pradhan Mantri Awas Yojana,Affordable housing scheme,https://pmaymis.gov.in,central,18,Any,ALL,Any,Urban,Any,Any
-Mukhyamantri Kisan Yojana,State support for farmers,https://krushi.maharashtra.gov.in,state,18,Any,Maharashtra,Farmer,Rural,Any,Any
-Ladli Laxmi Yojana,Financial assistance for girl child,https://ladlilaxmi.mp.gov.in,state,0,Female,Madhya Pradesh,Any,Any,Any,Any
+name,description,min_age,gender,states,occupations,residence,minority,disabled,type,website
+PM Kisan Samman Nidhi,Provides ₹6000 per year in three installments to small and marginal farmers.,18,Any,ALL,Farmer,Any,Any,Any,Central,https://pmkisan.gov.in/
+Sukanya Samriddhi Yojana,A small deposit scheme for the girl child to meet her education and marriage expenses.,0,Female,ALL,Any,Any,Any,Any,Central,https://www.nsiindia.gov.in
+PM Awas Yojana (Urban),Provides central assistance to urban local bodies for providing houses to eligible families.,18,Any,ALL,Any,Urban,Any,Any,Central,https://pmay-urban.gov.in
+UP Old Age Pension Scheme,Financial assistance for senior citizens residing in Uttar Pradesh.,60,Any,Uttar Pradesh,Any,Any,Any,Any,State,https://sspy-up.gov.in
+Post-Matric Scholarship for Minorities,Financial support for students belonging to minority communities pursuing higher education.,15,Any,ALL,Student,Any,Yes,Any,Central,https://scholarships.gov.in
+Maharashtra Kanya Bhagyashree Kadak,Financial incentive for the birth of a girl child to families in Maharashtra.,0,Female,Maharashtra,Any,Any,Any,Any,State,https://wcd.maharashtra.gov.in
+Atal Pension Yojana,A pension scheme mainly aimed at the unorganized sector like domestic helps and drivers.,18,Any,ALL,Daily Wage Worker,Any,Any,Any,Central,https://www.npscra.nsdl.co.in
+National Disability Pension,Monthly financial assistance for persons with more than 80% disability.,18,Any,ALL,Any,Any,Any,Yes,Central,https://nsap.nic.in
+Pradhan Mantri Mudra Yojana,Loans up to 10 Lakhs for non-corporate non-farm small/micro enterprises.,18,Any,ALL,Self Employed,Any,Any,Any,Central,https://www.mudra.org.in
+Bihar Student Credit Card Scheme,Low-interest education loans for students in Bihar for higher studies.,18,Any,Bihar,Student,Any,Any,Any,State,https://www.7nishchay-yuvaupmission.bihar.gov.in
+PM Matru Vandana Yojana,Maternity benefit of ₹5000 for pregnant and lactating mothers for the first child.,19,Female,ALL,Any,Any,Any,Any,Central,https://wcd.nic.in
+NREGA - Job Card,Guarantees 100 days of wage employment in a financial year to a rural household.,18,Any,ALL,Unemployed,Rural,Any,Any,Central,https://nrega.nic.in
+Delhi Ladli Scheme,Financial assistance to the girl child born in Delhi to promote education.,0,Female,Delhi,Any,Any,Any,Any,State,https://wcd.delhi.gov.in
+Free Coaching for SC and OBC Students,Coaching for competitive exams for students belonging to SC and OBC categories.,17,Any,ALL,Student,Any,Any,Any,Central,https://socialjustice.gov.in

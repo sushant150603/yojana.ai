@@ -3,14 +3,21 @@ import json
 import requests
 from flask import Flask, render_template, request, session, redirect, url_for, jsonify
 from deep_translator import GoogleTranslator
+import os  # Standard library to interact with the OS
+from dotenv import load_dotenv  # Import the loader
+load_dotenv()
+# 2. Retrieve the variables
+OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
+SECRET_KEY = os.getenv("FLASK_SECRET")
 
 # ---------------- FLASK APP ----------------
 app = Flask(__name__)
-app.secret_key = "yojana_ai_secret"  # session safety
+app.secret_key =  SECRET_KEY   # session safety
 
 # ---------------- AI CONFIG (OpenRouter) ----------------
 # PASTE YOUR OPENROUTER KEY HERE
-OPENROUTER_API_KEY = "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"
+
+OPENROUTER_API_KEY = "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"
 
 def ask_ai(prompt):
     """Function to call Gemini via OpenRouter"""

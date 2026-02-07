@@ -2,107 +2,243 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{{ labels.title }}</title>
+    <title>Yojana Sarathi - {{ labels.title }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
     <style>
-        body { font-family: Arial, sans-serif; background-color: #eef2f3; padding: 30px; }
-        h2 { color: #2c3e50; text-align: center; }
-        form { max-width: 600px; margin: auto; background: #fff; padding: 20px; border-radius: 8px; }
-        label { display: block; margin-top: 15px; font-weight: bold; }
-        select, input { width: 100%; padding: 8px; margin-top: 5px; border-radius: 4px; border: 1px solid #ccc; }
-        button { margin-top: 20px; padding: 10px 15px; background-color: #1a73e8; color: #fff; border: none; border-radius: 4px; cursor: pointer; }
-        button:hover { background-color: #155ab6; }
+        /* --- Brand Identity (Matching Page 1) --- */
+        :root {
+            --primary-blue: #004a99;      
+            --accent-cyan: #00b4d8;      
+            --bg-gradient: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+            --text-slate: #334155;       
+            --edge-grey: #e2e8f0;
+            --dark-footer: #002147;
+        }
+
+        body {
+            margin: 0; padding: 0;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: var(--bg-gradient);
+            color: var(--text-slate);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* --- Minimalist Edge Menu --- */
+        .navbar {
+            background: #ffffff !important;
+            padding: 10px 0;
+            z-index: 1000;
+            border-top: 4px solid var(--primary-blue);
+            border-bottom: 1px solid var(--edge-grey);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+        }
+        .navbar-brand {
+            color: var(--primary-blue) !important;
+            font-weight: 800;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-size: 1.2rem;
+        }
+
+        /* --- Formal Form Container --- */
+        .main-content {
+            flex: 1;
+            padding: 40px 0;
+        }
+
+        .profile-card {
+            background: #ffffff;
+            border: 1px solid var(--edge-grey);
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            padding: 40px;
+            max-width: 850px;
+            margin: auto;
+        }
+
+        h2 {
+            color: var(--primary-blue);
+            font-weight: 800;
+            margin-bottom: 30px;
+            text-align: center;
+            letter-spacing: -0.5px;
+        }
+
+        label {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--text-slate);
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        select, input {
+            border: 1px solid var(--edge-grey) !important;
+            border-radius: 6px !important;
+            padding: 10px !important;
+            font-size: 0.95rem !important;
+            transition: 0.3s;
+        }
+
+        select:focus, input:focus {
+            border-color: var(--accent-cyan) !important;
+            box-shadow: 0 0 0 3px rgba(0, 180, 216, 0.1) !important;
+        }
+
+        .btn-submit {
+            background: var(--primary-blue);
+            color: white;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 12px 40px;
+            border: none;
+            border-radius: 6px;
+            transition: 0.3s;
+            display: block;
+            margin: 30px auto 0;
+        }
+
+        .btn-submit:hover {
+            background: var(--accent-cyan);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 74, 153, 0.2);
+        }
+
+        /* --- Dark 2-Line Disclaimer --- */
+        .disclaimer-bar {
+            background-color: var(--dark-footer);
+            color: rgba(255, 255, 255, 0.85);
+            padding: 15px 0;
+            text-align: center;
+            font-size: 0.82rem; 
+            border-top: 2px solid var(--accent-cyan);
+            z-index: 100;
+            font-weight: 400;
+            line-height: 1.6;
+        }
+
+        /* --- Speaker Sign (Bottom Right) --- */
+        .speaker {
+            position: fixed; 
+            bottom: 85px; 
+            right: 40px; 
+            width: 55px; 
+            height: 55px; 
+            cursor: pointer;
+            background: var(--primary-blue); 
+            padding: 14px; 
+            border-radius: 50%; 
+            z-index: 1001;
+            box-shadow: 0 8px 16px rgba(0, 74, 153, 0.2); 
+            transition: 0.3s;
+        }
     </style>
 </head>
 <body>
 
-<h2>{{ labels.title }}</h2>
+    <!-- Top Menu Bar -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="/">Yojana Sarathi</a>
+            <div class="navbar-nav ms-auto d-none d-lg-flex">
+                <a class="nav-link" href="#" style="color:var(--text-slate); font-weight:600; margin-left:20px; font-size:0.8rem;">ABOUT US</a>
+                <a class="nav-link" href="#" style="color:var(--text-slate); font-weight:600; margin-left:20px; font-size:0.8rem;">FEEDBACK</a>
+                <a class="nav-link" href="#" style="color:var(--text-slate); font-weight:600; margin-left:20px; font-size:0.8rem;">PROJECT</a>
+            </div>
+        </div>
+    </nav>
 
-<form method="post">
-    <label>{{ labels.state }}</label>
-    <select name="state" required>
-        <option value="">{{ labels.select }}</option>
-        {% for s in states %}
-            <option value="{{ s }}" {% if session.user_data and session.user_data['state']==s.split(' (')[0] %}selected{% endif %}>
-                {{ s }}
-            </option>
-        {% endfor %}
-    </select>
+    <div class="main-content container">
+        <div class="profile-card">
+            <h2>{{ labels.title }}</h2>
+            
+            <form method="post">
+                <div class="row g-4">
+                    <!-- Column 1 -->
+                    <div class="col-md-6">
+                        <label>{{ labels.state }}</label>
+                        <select name="state" class="form-select" required>
+                            <option value="">{{ labels.select }}</option>
+                            {% for s in states %}
+                                <option value="{{ s }}" {% if session.user_data and session.user_data['state']==s %}selected{% endif %}>{{ s }}</option>
+                            {% endfor %}
+                        </select>
 
-    <label>{{ labels.gender }}</label>
-    <select name="gender" required>
-        <option value="">{{ labels.select }}</option>
-        {% for g in genders %}
-            <option value="{{ g }}" {% if session.user_data and session.user_data['gender']==g.split(' (')[0] %}selected{% endif %}>
-                {{ g }}
-            </option>
-        {% endfor %}
-    </select>
+                        <label class="mt-3">{{ labels.gender }}</label>
+                        <select name="gender" class="form-select" required>
+                            <option value="">{{ labels.select }}</option>
+                            {% for g in genders %}
+                                <option value="{{ g }}" {% if session.user_data and session.user_data['gender']==g %}selected{% endif %}>{{ g }}</option>
+                            {% endfor %}
+                        </select>
 
-    <label>{{ labels.age }}</label>
-    <input type="number" name="age" value="{{ session.user_data['age'] if session.user_data else '' }}" required />
+                        <label class="mt-3">{{ labels.age }}</label>
+                        <input type="number" name="age" class="form-control" value="{{ session.user_data['age'] if session.user_data else '' }}" required />
 
-    <label>{{ labels.caste }}</label>
-    <select name="caste" required>
-        <option value="">{{ labels.select }}</option>
-        {% for c in castes %}
-            <option value="{{ c }}" {% if session.user_data and session.user_data['caste']==c.split(' (')[0] %}selected{% endif %}>
-                {{ c }}
-            </option>
-        {% endfor %}
-    </select>
+                        <label class="mt-3">{{ labels.caste }}</label>
+                        <select name="caste" class="form-select" required>
+                            <option value="">{{ labels.select }}</option>
+                            {% for c in castes %}
+                                <option value="{{ c }}" {% if session.user_data and session.user_data['caste']==c %}selected{% endif %}>{{ c }}</option>
+                            {% endfor %}
+                        </select>
 
-    <label>{{ labels.residence }}</label>
-    <select name="residence" required>
-        <option value="">{{ labels.select }}</option>
-        {% for r in residence_types %}
-            <option value="{{ r }}" {% if session.user_data and session.user_data['residence']==r.split(' (')[0] %}selected{% endif %}>
-                {{ r }}
-            </option>
-        {% endfor %}
-    </select>
+                        <label class="mt-3">{{ labels.residence }}</label>
+                        <select name="residence" class="form-select" required>
+                            <option value="">{{ labels.select }}</option>
+                            {% for r in residence_types %}
+                                <option value="{{ r }}" {% if session.user_data and session.user_data['residence']==r %}selected{% endif %}>{{ r }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
 
-    <label>{{ labels.occupation }}</label>
-    <select name="occupation" required>
-        <option value="">{{ labels.select }}</option>
-        {% for o in occupations %}
-            <option value="{{ o }}" {% if session.user_data and session.user_data['occupation']==o.split(' (')[0] %}selected{% endif %}>
-                {{ o }}
-            </option>
-        {% endfor %}
-    </select>
+                    <!-- Column 2 -->
+                    <div class="col-md-6">
+                        <label>{{ labels.occupation }}</label>
+                        <select name="occupation" class="form-select" required>
+                            <option value="">{{ labels.select }}</option>
+                            {% for o in occupations %}
+                                <option value="{{ o }}" {% if session.user_data and session.user_data['occupation']==o %}selected{% endif %}>{{ o }}</option>
+                            {% endfor %}
+                        </select>
 
-    <label>{{ labels.salary }}</label>
-    <select name="salary" required>
-        <option value="">{{ labels.select }}</option>
-        {% for s in salary_ranges %}
-            <option value="{{ s }}" {% if session.user_data and session.user_data['salary']==s.split(' (')[0] %}selected{% endif %}>
-                {{ s }}
-            </option>
-        {% endfor %}
-    </select>
+                        <label class="mt-3">{{ labels.salary }}</label>
+                        <select name="salary" class="form-select" required>
+                            <option value="">{{ labels.select }}</option>
+                            {% for s in salary_ranges %}
+                                <option value="{{ s }}" {% if session.user_data and session.user_data['salary']==s %}selected{% endif %}>{{ s }}</option>
+                            {% endfor %}
+                        </select>
 
-    <label>{{ labels.minority }}</label>
-    <select name="minority" required>
-        <option value="">{{ labels.select }}</option>
-        {% for y in yes_no %}
-            <option value="{{ y }}" {% if session.user_data and session.user_data['minority']==y.split(' (')[0] %}selected{% endif %}>
-                {{ y }}
-            </option>
-        {% endfor %}
-    </select>
+                        <label class="mt-3">{{ labels.minority }}</label>
+                        <select name="minority" class="form-select" required>
+                            <option value="">{{ labels.select }}</option>
+                            {% for y in yes_no %}
+                                <option value="{{ y }}" {% if session.user_data and session.user_data['minority']==y %}selected{% endif %}>{{ y }}</option>
+                            {% endfor %}
+                        </select>
 
-    <label>{{ labels.disabled }}</label>
-    <select name="disabled" required>
-        <option value="">{{ labels.select }}</option>
-        {% for y in yes_no %}
-            <option value="{{ y }}" {% if session.user_data and session.user_data['disabled']==y.split(' (')[0] %}selected{% endif %}>
-                {{ y }}
-            </option>
-        {% endfor %}
-    </select>
+                        <label class="mt-3">{{ labels.disabled }}</label>
+                        <select name="disabled" class="form-select" required>
+                            <option value="">{{ labels.select }}</option>
+                            {% for y in yes_no %}
+                                <option value="{{ y }}" {% if session.user_data and session.user_data['disabled']==y %}selected{% endif %}>{{ y }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
 
-    <button type="submit">{{ labels.submit }}</button>
-</form>
+                <button type="submit" class="btn btn-submit shadow">{{ labels.submit }}</button>
+            </form>
+        </div>
+    </div>
+
+   
 
 </body>
 </html>
