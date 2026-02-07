@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ lang }}">
 <head>
 <meta charset="UTF-8">
 <title>{{ column_titles.all }}</title>
 
+<!-- Your Original CSS Styles Preserved -->
 <style>
 body {
     font-family: Arial, sans-serif;
@@ -43,12 +44,28 @@ h2 {
     padding: 12px;
     margin: 10px 0;
     border-radius: 6px;
+    border-left: 4px solid #1a73e8; /* Added a small accent */
+    transition: transform 0.2s;
+}
+
+.scheme-card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
 .scheme-card h4 {
     margin: 0;
     font-size: 16px;
-    color: #333;
+}
+
+/* Updated link style for the scheme name */
+.scheme-card h4 a {
+    color: #1a73e8;
+    text-decoration: none;
+}
+
+.scheme-card h4 a:hover {
+    text-decoration: underline;
 }
 
 .scheme-card p {
@@ -57,14 +74,11 @@ h2 {
     color: #555;
 }
 
-.scheme-card a {
-    color: #1a73e8;
+.scheme-card a.web-link {
+    color: #28a745;
     text-decoration: none;
-    font-size: 14px;
-}
-
-.scheme-card a:hover {
-    text-decoration: underline;
+    font-size: 13px;
+    font-weight: bold;
 }
 
 .no-scheme {
@@ -73,6 +87,17 @@ h2 {
     font-size: 16px;
     margin-top: 20px;
     color: #555;
+}
+
+.brief-btn {
+    display: inline-block;
+    margin-top: 8px;
+    font-size: 12px;
+    color: #fff;
+    background: #1a73e8;
+    padding: 4px 8px;
+    border-radius: 4px;
+    text-decoration: none;
 }
 </style>
 </head>
@@ -89,17 +114,19 @@ h2 {
         {% if all_schemes %}
             {% for s in all_schemes %}
             <div class="scheme-card">
-                <h4>{{ s.name }}</h4>
+                <!-- Clickable name leading to Page 4 AI Briefing -->
+                <h4><a href="{{ url_for('page4', scheme_name=s.raw_name) }}">{{ s.name }}</a></h4>
                 <p>{{ s.description }}</p>
 
                 <p>
                     <strong>Website:</strong>
                     {% if s.website %}
-                        <a href="{{ s.website }}" target="_blank">{{ s.website }}</a>
+                        <a href="{{ s.website }}" class="web-link" target="_blank">{{ s.website }}</a>
                     {% else %}
                         N/A
                     {% endif %}
                 </p>
+                <a href="{{ url_for('page4', scheme_name=s.raw_name) }}" class="brief-btn">AI Briefing & Documents</a>
             </div>
             {% endfor %}
         {% else %}
@@ -113,17 +140,18 @@ h2 {
         {% if central_schemes %}
             {% for s in central_schemes %}
             <div class="scheme-card">
-                <h4>{{ s.name }}</h4>
+                <h4><a href="{{ url_for('page4', scheme_name=s.raw_name) }}">{{ s.name }}</a></h4>
                 <p>{{ s.description }}</p>
 
                 <p>
                     <strong>Website:</strong>
                     {% if s.website %}
-                        <a href="{{ s.website }}" target="_blank">{{ s.website }}</a>
+                        <a href="{{ s.website }}" class="web-link" target="_blank">{{ s.website }}</a>
                     {% else %}
                         N/A
                     {% endif %}
                 </p>
+                <a href="{{ url_for('page4', scheme_name=s.raw_name) }}" class="brief-btn">AI Briefing & Documents</a>
             </div>
             {% endfor %}
         {% else %}
@@ -137,17 +165,18 @@ h2 {
         {% if state_schemes %}
             {% for s in state_schemes %}
             <div class="scheme-card">
-                <h4>{{ s.name }}</h4>
+                <h4><a href="{{ url_for('page4', scheme_name=s.raw_name) }}">{{ s.name }}</a></h4>
                 <p>{{ s.description }}</p>
 
                 <p>
                     <strong>Website:</strong>
                     {% if s.website %}
-                        <a href="{{ s.website }}" target="_blank">{{ s.website }}</a>
+                        <a href="{{ s.website }}" class="web-link" target="_blank">{{ s.website }}</a>
                     {% else %}
                         N/A
                     {% endif %}
                 </p>
+                <a href="{{ url_for('page4', scheme_name=s.raw_name) }}" class="brief-btn">AI Briefing & Documents</a>
             </div>
             {% endfor %}
         {% else %}

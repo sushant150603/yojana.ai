@@ -1,15 +1,38 @@
-
 import csv
-from flask import Flask, render_template, request, session, redirect, url_for
+import json
+import requests
+from flask import Flask, render_template, request, session, redirect, url_for, jsonify
 from deep_translator import GoogleTranslator
 
 # ---------------- FLASK APP ----------------
 app = Flask(__name__)
 app.secret_key = "yojana_ai_secret"  # session safety
 
+# ---------------- AI CONFIG (OpenRouter) ----------------
+# PASTE YOUR OPENROUTER KEY HERE
+OPENROUTER_API_KEY = "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"
+
+def ask_ai(prompt):
+    """Function to call Gemini via OpenRouter"""
+    try:
+        response = requests.post(
+            url="https://openrouter.ai/api/v1/chat/completions",
+            headers={
+                "Authorization": f"Bearer {OPENROUTER_API_KEY}",
+                "Content-Type": "application/json",
+            },
+            data=json.dumps({
+                "model": "google/gemma-3n-e2b-it:free",
+                "messages": [{"role": "user", "content": prompt}]
+            })
+        )
+        return response.json()['choices'][0]['message']['content']
+    except Exception as e:
+        return f"AI Error: {str(e)}"
+
 # ---------------- TRANSLATION FUNCTION ----------------
 def t(text, lang):
-    if lang == "en":
+    if not text or lang == "en":
         return text
     try:
         translated = GoogleTranslator(source="en", target=lang).translate(text)
@@ -100,7 +123,7 @@ def page2():
     ]
     salary_ranges = [
         "No Income","Below ₹10,000","₹10,000 – ₹25,000","₹25,001 – ₹50,000",
-        "₹50,001 – ₹1,00,000","Above ₹1,00,000"
+        "Above ₹1,00,000"
     ]
 
     # Translate dropdowns
@@ -177,8 +200,9 @@ def page3():
                 except:
                     desc = scheme["description"]
 
-            # ✅ ONLY ADDITION
+            # ✅ UPDATED: Include raw_name for routing to Page 4
             scheme_data = {
+                "raw_name": scheme["name"],
                 "name": name,
                 "description": desc,
                 "website": scheme.get("website")
@@ -212,6 +236,113 @@ def page3():
         lang=lang
     )
 
-# ---------------- RUN APP ----------------
-if __name__=="__main__":
+# ---------------- PAGE 4 (AI BRIEFING) ----------------
+# ---------------- LANGUAGE MAPPING ----------------
+# Helping the AI understand the target language better
+LANGUAGE_NAMES = {
+    "en": "English",
+    "hi": "Hindi",
+    "mr": "Marathi",
+    "kn": "Kannada",
+    "gu": "Gujarati",
+    "ta": "Tamil",
+    "te": "Telugu",
+    "bn": "Bengali",
+    "ml": "Malayalam"
+}
+
+# ---------------- PAGE 4 (AI BRIEFING) ----------------
+# ---------------- LANGUAGE MAPPING ----------------
+# Mapping language codes to full names to improve AI translation accuracy
+LANGUAGE_NAMES = {
+    "en": "English",
+    "hi": "Hindi",
+    "mr": "Marathi",
+    "kn": "Kannada",
+    "gu": "Gujarati",
+    "ta": "Tamil",
+    "te": "Telugu",
+    "bn": "Bengali",
+    "ml": "Malayalam"
+}
+
+# ---------------- PAGE 4 (AI BRIEFING) ----------------
+
+@app.route("/scheme/<path:scheme_name>")
+def page4(scheme_name):
+    lang = session.get("lang", "en")
+    schemes = load_schemes_from_csv()
+    
+    # Find exact scheme from CSV to get the correct website link
+    selected_scheme = next((s for s in schemes if s['name'] == scheme_name), None)
+    
+    if not selected_scheme:
+        return "Scheme not found", 404
+
+    # Extract website link from CSV
+    official_link = selected_scheme.get("website", "https://www.india.gov.in")
+    
+    # Get the full name of the language for the AI
+    full_language = LANGUAGE_NAMES.get(lang, "English")
+    
+    # ✅ UPDATED PROMPT: Bold heading and Bulleted list instructions
+    prompt = f"""
+    Act as an official government consultant. Use information EXCLUSIVELY from this official website: {official_link}.
+    Provide a detailed briefing for the scheme: "{scheme_name}".
+    
+    STRICT RULES:
+    1. Language: You must write the ENTIRE response in {full_language}.
+    2. Header: Start directly with the summary. No "To:", "From:", or "Subject:".
+    3. Bold Heading: Use double asterisks to make the documents heading bold exactly like this: **Required Documents to Apply**
+    4. Bullets: List each document using a bullet point ( - or * ).
+    
+    CONTENT:
+    - A summary of the scheme and its benefits.
+    - The bolded heading: **Required Documents to Apply**
+    - The list of documents based on {official_link}.
+    """
+    
+    briefing_content = ask_ai(prompt)
+
+    labels = {
+        "title": t("Scheme Briefing & Documents", lang),
+        "back": t("Back to Schemes", lang),
+        "visit": t("Visit Official Website", lang),
+        "chat_head": t("AI Chat Support", lang),
+        "placeholder": t("Ask a question about this scheme...", lang),
+        "send": t("Send", lang)
+    }
+
+    return render_template(
+        "page4.html",
+        scheme_name=scheme_name,
+        briefing=briefing_content,
+        website=official_link,
+        labels=labels,
+        lang=lang
+    )
+
+# ---------------- CHAT API ----------------
+
+@app.route("/api/chat", methods=["POST"])
+def chat():
+    data = request.json
+    user_msg = data.get("message")
+    scheme_name = data.get("scheme")
+    lang = session.get("lang", "en")
+    full_language = LANGUAGE_NAMES.get(lang, "English")
+
+    # Consistent instructions for the chatbot
+    prompt = f"""
+    The user is asking about the '{scheme_name}' scheme. 
+    Question: '{user_msg}'. 
+    
+    Answer directly in {full_language}. 
+    Use **bolding** for important terms and bullet points if listing items.
+    Do not use formal memorandum headers.
+    """
+    reply = ask_ai(prompt)
+    return jsonify({"reply": reply})
+
+if __name__ == "__main__":
     app.run(debug=True)
